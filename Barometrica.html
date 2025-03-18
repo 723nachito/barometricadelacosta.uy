@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barométrica de la Costa</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #2c2c2c;
+    }
+
+    header {
+      background-color: #5c1010;
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 500;
+    }
+
+    nav {
+      background-color: #ececec;
+      padding: 12px 0;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #5c1010;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #5c1010;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-weight: 400;
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    h4 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+    ol,
+    ul {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .boton {
+      display: inline-block;
+      margin: 12px 10px;
+      padding: 12px 22px;
+      background-color: #5c1010;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .boton:hover {
+      background-color: #3f0c0c;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      padding: 25px;
+      background-color: #f1f1f1;
+      border-top: 1px solid #ddd;
+    }
+
+    /* RESPONSIVE: Mejoras para móviles */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 26px;
+        padding: 20px 10px;
+      }
+
+      nav a {
+        display: block;
+        margin: 10px 0;
+        font-size: 18px;
+      }
+
+      section {
+        padding: 30px 15px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      h3,
+      h4 {
+        font-size: 16px;
+      }
+
+      .boton {
+        display: block;
+        width: 80%;
+        max-width: 300px;
+        margin: 12px auto;
+        padding: 14px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Barométrica de la Costa</h1>
+  </header>
+
+  <nav>
+    <a href="#nosotros">Quiénes somos</a>
+    <a href="#zonas">Zonas</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#horarios">Horarios</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <section id="nosotros">
+    <h2>¿Quiénes somos?</h2>
+    <h3>
+      Con más de 25 años de experiencia en Solymar, ofrecemos un servicio barométrico rápido, confiable y con excelente atención al cliente.
+      Contamos con una flota de tres camiones para asegurar respuestas ágiles y efectivas en toda la zona.
+    </h3>
+
+    <div class="center">
+      <h4>Nuestra flota</h4>
+      <img src="imgs/img.jpg" alt="Camión barométrica 1" />
+      <img src="imgs/imgg.jpg" alt="Camión barométrica 2" />
+    </div>
+  </section>
+
+  <section id="zonas">
+    <h2>Zonas de trabajo</h2>
+    <h4>Operamos en las siguientes áreas:</h4>
+    <ol>
+      <li>Colinas de Solymar</li>
+      <li>El Pinar</li>
+      <li>Lagomar</li>
+      <li>Lomas de Solymar</li>
+      <li>Medanos de Solymar</li>
+      <li>Montes de Solymar</li>
+      <li>Paso Carrasco</li>
+      <li>Parque Carrasco</li>
+      <li>Parque Miramar</li>
+      <li>San José de Carrasco</li>
+      <li>Shangrilá</li>
+      <li>Solymar</li>
+    </ol>
+  </section>
+
+  <section id="servicios">
+    <h2>Servicios</h2>
+    <ol>
+      <li>Limpieza de pozos</li>
+      <li>Limpieza de cámaras</li>
+      <li>Limpieza de graseras</li>
+    </ol>
+  </section>
+
+  <section id="horarios">
+    <h2>Horarios de atención telefónica</h2>
+    <ul>
+      <li><strong>Lunes a Viernes:</strong> 7:30 a 19:00</li>
+      <li><strong>Sábados:</strong> 7:30 a 16:30</li>
+    </ul>
+  </section>
+
+  <section id="contacto" class="center">
+    <h2>Contacto</h2>
+    <h3>Consultanos por precios o disponibilidad</h3>
+    <a class="boton" href="https://wa.me/+59894581351" target="_blank">WhatsApp</a>
+    <a class="boton" href="tel:26988347">Llamar</a>
+  </section>
+
+  <footer>
+    © 2025 Barométrica de la Costa. Todos los derechos reservados.
+  </footer>
+
+</body>
+
+</html>

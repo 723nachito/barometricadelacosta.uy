@@ -2,152 +2,1222 @@
 <html lang="es">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="icon" href="images/favicon.png" type="image/png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="theme-color" content="#7d1118">
+  <meta name="description" content="Barométrica de la Costa">
+
   <title>Barométrica de la Costa</title>
+
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-      color: #2c2c2c;
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+
+    :root {
+      --rojo: #7d1118;
+      --rojo-claro: #a91f2c;
+      --rojo-oscuro: #570b10;
+
+      --fondo: #f3f0ee;
+      --fondo-secundario: #ebe6e3;
+      --tarjeta: #fffdfc;
+
+      --texto: #2b2525;
+      --texto-suave: #6e6464;
+
+      --borde: #e5dcda;
+
+      --dorado: #c89b4b;
+
+      --whatsapp: #1fa855;
+      --whatsapp-hover: #178a45;
+
+      --sombra:
+        0 10px 35px rgba(56, 25, 27, 0.07);
+
+      --sombra-fuerte:
+        0 18px 50px rgba(56, 25, 27, 0.13);
+
+      --radio: 22px;
+      --ancho-maximo: 1100px;
     }
 
-    header {
-      background-color: #5c1010;
-      color: #fff;
-      padding: 30px 0;
-      text-align: center;
+    /* =========================================================
+       RESET / BASE
+    ========================================================= */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      color: var(--texto);
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(125, 17, 24, 0.055),
+          transparent 28rem
+        ),
+        linear-gradient(
+          180deg,
+          #f6f3f1 0%,
+          var(--fondo) 45%,
+          #eeeae8 100%
+        );
+
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    ::selection {
+      background: rgba(125, 17, 24, 0.18);
+      color: var(--rojo-oscuro);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(169, 31, 44, 0.35);
+      outline-offset: 4px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .site-header {
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 20% 10%,
+          rgba(255, 255, 255, 0.13),
+          transparent 22rem
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(255, 255, 255, 0.08),
+          transparent 20rem
+        ),
+        linear-gradient(
+          135deg,
+          var(--rojo-oscuro),
+          var(--rojo) 55%,
+          #971721
+        );
+
+      color: #ffffff;
+
+      padding: 58px 20px 62px;
+    }
+
+    .site-header::before,
+    .site-header::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .site-header::before {
+      width: 360px;
+      height: 360px;
+      top: -240px;
+      right: -60px;
+    }
+
+    .site-header::after {
+      width: 240px;
+      height: 240px;
+      bottom: -170px;
+      left: 8%;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+
+      width: min(100%, var(--ancho-maximo));
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .brand-icon {
+      flex: 0 0 auto;
+
+      width: 58px;
+      height: 58px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 18px;
+
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
+
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .brand-icon svg {
+      width: 30px;
+      height: 30px;
     }
 
     header h1 {
       margin: 0;
-      font-size: 36px;
-      font-weight: 500;
+
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      font-weight: 700;
+
+      letter-spacing: -0.04em;
+      text-wrap: balance;
     }
 
-    nav {
-      background-color: #ececec;
-      padding: 12px 0;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
+    /* =========================================================
+       NAVEGACIÓN
+    ========================================================= */
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 253, 252, 0.9);
+
+      border-bottom: 1px solid rgba(90, 60, 60, 0.09);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-    nav a {
-      margin: 0 15px;
-      color: #5c1010;
+    .nav-shell {
+      position: relative;
+
+      width: min(
+        calc(100% - 32px),
+        var(--ancho-maximo)
+      );
+
+      min-height: 68px;
+
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-links {
+      margin: 0;
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+
+      list-style: none;
+    }
+
+    .nav-links a {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 44px;
+
+      padding: 9px 14px;
+
+      border-radius: 12px;
+
+      color: #4d4242;
+
+      font-size: 0.95rem;
+      font-weight: 650;
+
       text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
+
+      transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease;
     }
 
-    nav a:hover {
-      text-decoration: underline;
+    .nav-links a:hover {
+      color: var(--rojo);
+      background: rgba(125, 17, 24, 0.065);
+    }
+
+    .nav-links a.active {
+      color: var(--rojo);
+      background: rgba(125, 17, 24, 0.09);
+    }
+
+    .nav-links a:active {
+      transform: scale(0.97);
+    }
+
+    .menu-toggle {
+      display: none;
+
+      width: 46px;
+      height: 46px;
+
+      padding: 0;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--borde);
+      border-radius: 13px;
+
+      background: var(--tarjeta);
+      color: var(--rojo);
+
+      cursor: pointer;
+
+      box-shadow: 0 5px 18px rgba(60, 30, 30, 0.06);
+    }
+
+    .menu-toggle svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .menu-toggle .icon-close {
+      display: none;
+    }
+
+    .menu-toggle[aria-expanded="true"] .icon-menu {
+      display: none;
+    }
+
+    .menu-toggle[aria-expanded="true"] .icon-close {
+      display: block;
+    }
+
+    /* =========================================================
+       CONTENIDO PRINCIPAL
+    ========================================================= */
+
+    main {
+      width: min(
+        calc(100% - 36px),
+        var(--ancho-maximo)
+      );
+
+      margin: 0 auto;
+      padding: 46px 0 70px;
     }
 
     section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
+      scroll-margin-top: 95px;
+
+      margin-bottom: 24px;
+      padding: clamp(26px, 5vw, 46px);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.94),
+          rgba(255, 253, 252, 0.93)
+        );
+
+      border: 1px solid rgba(112, 78, 78, 0.11);
+      border-radius: var(--radio);
+
+      box-shadow: var(--sombra);
+    }
+
+    section:last-child {
+      margin-bottom: 0;
     }
 
     h2 {
-      color: #5c1010;
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 15px;
+      position: relative;
+
+      margin: 0 0 22px;
+
+      padding-bottom: 14px;
+
+      color: var(--rojo);
+
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      line-height: 1.2;
+      font-weight: 750;
+
+      letter-spacing: -0.035em;
+    }
+
+    h2::after {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      width: 52px;
+      height: 4px;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--rojo),
+          var(--dorado)
+        );
     }
 
     h3 {
+      margin: 0;
+
+      max-width: 850px;
+
+      color: #4b4343;
+
+      font-size: clamp(1rem, 2vw, 1.12rem);
+      line-height: 1.85;
       font-weight: 400;
-      line-height: 1.6;
-      font-size: 18px;
     }
 
     h4 {
-      font-size: 18px;
-      font-weight: 500;
-      margin-top: 20px;
+      margin: 0 0 16px;
+
+      color: #443b3b;
+
+      font-size: 1.05rem;
+      font-weight: 700;
     }
 
-    ol,
-    ul {
-      padding-left: 20px;
-      line-height: 1.6;
-    }
+    /* =========================================================
+       BOTONES
+    ========================================================= */
 
     .boton {
-      display: inline-block;
-      margin: 12px 10px;
-      padding: 12px 22px;
-      background-color: #5c1010;
-      color: white;
+      min-height: 48px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      margin-top: 24px;
+      padding: 12px 20px;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--rojo),
+          var(--rojo-claro)
+        );
+
+      color: #ffffff;
+
+      font-size: 0.97rem;
+      font-weight: 700;
+
       text-decoration: none;
-      font-size: 16px;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
+
+      box-shadow:
+        0 8px 22px rgba(125, 17, 24, 0.18);
+
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
     }
 
     .boton:hover {
-      background-color: #3f0c0c;
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 13px 28px rgba(125, 17, 24, 0.24);
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    .boton:active {
+      transform: translateY(0) scale(0.98);
     }
 
-    .center {
+    .boton svg {
+      flex: 0 0 auto;
+
+      width: 19px;
+      height: 19px;
+    }
+
+    /* =========================================================
+       FLOTA
+    ========================================================= */
+
+    .fleet {
+      margin-top: 38px;
+      padding-top: 30px;
+
+      border-top: 1px solid var(--borde);
+    }
+
+    .fleet h4 {
       text-align: center;
+
+      margin-bottom: 20px;
+
+      color: var(--rojo);
+
+      font-size: 1.15rem;
     }
+
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .fleet-grid img {
+      width: 100%;
+      height: 100%;
+
+      aspect-ratio: 16 / 10;
+
+      object-fit: cover;
+
+      border-radius: 17px;
+
+      border: 1px solid rgba(100, 60, 60, 0.08);
+
+      box-shadow:
+        0 12px 28px rgba(50, 30, 30, 0.1);
+
+      transition:
+        transform 250ms ease,
+        box-shadow 250ms ease;
+    }
+
+    .fleet-grid img:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 18px 38px rgba(50, 30, 30, 0.15);
+    }
+
+    /* =========================================================
+       ZONAS
+    ========================================================= */
+
+    #zonas h4 {
+      margin-bottom: 22px;
+      color: var(--texto-suave);
+      font-weight: 500;
+    }
+
+    .zones-grid {
+      counter-reset: zonas;
+
+      margin: 0;
+      padding: 0;
+
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
+
+      list-style: none;
+    }
+
+    .zones-grid li {
+      counter-increment: zonas;
+
+      position: relative;
+
+      min-height: 58px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 12px 13px 12px 51px;
+
+      border: 1px solid var(--borde);
+      border-radius: 14px;
+
+      background: rgba(247, 244, 242, 0.75);
+
+      color: #453d3d;
+
+      font-size: 0.94rem;
+      font-weight: 600;
+
+      transition:
+        border-color 180ms ease,
+        background-color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .zones-grid li::before {
+      content: counter(zonas);
+
+      position: absolute;
+      left: 12px;
+
+      width: 28px;
+      height: 28px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: rgba(125, 17, 24, 0.09);
+      color: var(--rojo);
+
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .zones-grid li:hover {
+      transform: translateY(-2px);
+
+      border-color: rgba(125, 17, 24, 0.2);
+      background: rgba(125, 17, 24, 0.035);
+    }
+
+    /* =========================================================
+       SERVICIOS
+    ========================================================= */
+
+    .services-list {
+      counter-reset: servicios;
+
+      margin: 0;
+      padding: 0;
+
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+
+      list-style: none;
+    }
+
+    .services-list li {
+      counter-increment: servicios;
+
+      min-height: 120px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+
+      padding: 20px;
+
+      border: 1px solid var(--borde);
+      border-radius: 17px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #faf7f5,
+          #fffdfc
+        );
+
+      color: #403737;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 7px 20px rgba(60, 35, 35, 0.04);
+
+      transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .services-list li::before {
+      content: counter(servicios, decimal-leading-zero);
+
+      width: max-content;
+
+      color: var(--rojo);
+
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .services-list li:hover {
+      transform: translateY(-3px);
+
+      border-color: rgba(125, 17, 24, 0.2);
+
+      box-shadow:
+        0 12px 26px rgba(60, 35, 35, 0.08);
+    }
+
+    /* =========================================================
+       HORARIOS
+    ========================================================= */
+
+    .hours-list {
+      margin: 0;
+      padding: 0;
+
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+
+      list-style: none;
+    }
+
+    .hours-list li {
+      min-height: 84px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 18px 20px;
+
+      border-radius: 16px;
+      border: 1px solid var(--borde);
+
+      background: #faf7f5;
+
+      color: #514747;
+    }
+
+    .hours-list strong {
+      margin-right: 6px;
+      color: var(--rojo);
+    }
+
+    /* =========================================================
+       CONTACTO
+    ========================================================= */
+
+    #contacto {
+      position: relative;
+      overflow: hidden;
+
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.1),
+          transparent 25rem
+        ),
+        linear-gradient(
+          135deg,
+          var(--rojo-oscuro),
+          var(--rojo)
+        );
+
+      border-color: transparent;
+
+      color: #ffffff;
+
+      box-shadow: var(--sombra-fuerte);
+    }
+
+    #contacto::after {
+      content: "";
+
+      position: absolute;
+      right: -110px;
+      bottom: -150px;
+
+      width: 280px;
+      height: 280px;
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+
+      pointer-events: none;
+    }
+
+    #contacto h2 {
+      color: #ffffff;
+    }
+
+    #contacto h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff,
+          var(--dorado)
+        );
+    }
+
+    #contacto h3 {
+      margin: 0 auto;
+
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .contact-actions {
+      position: relative;
+      z-index: 1;
+
+      margin-top: 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .contact-actions .boton {
+      margin-top: 0;
+
+      min-width: 145px;
+
+      background: #ffffff;
+      color: var(--rojo);
+
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.13);
+    }
+
+    .contact-actions .boton:hover {
+      box-shadow:
+        0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    .contact-actions .whatsapp-button {
+      background: var(--whatsapp);
+      color: #ffffff;
+    }
+
+    .contact-actions .whatsapp-button:hover {
+      background: var(--whatsapp-hover);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
 
     footer {
+      padding: 28px 20px 34px;
+
       text-align: center;
-      font-size: 14px;
-      color: #666;
-      padding: 25px;
-      background-color: #f1f1f1;
-      border-top: 1px solid #ddd;
+
+      color: #746969;
+
+      font-size: 0.86rem;
     }
 
-    /* RESPONSIVE: Mejoras para móviles */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 26px;
-        padding: 20px 10px;
+    /* =========================================================
+       WHATSAPP FLOTANTE
+    ========================================================= */
+
+    .floating-whatsapp {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 900;
+
+      width: 58px;
+      height: 58px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 18px;
+
+      background: var(--whatsapp);
+      color: #ffffff;
+
+      text-decoration: none;
+
+      box-shadow:
+        0 12px 30px rgba(31, 168, 85, 0.3);
+
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease;
+    }
+
+    .floating-whatsapp:hover {
+      transform: translateY(-3px) scale(1.03);
+
+      background: var(--whatsapp-hover);
+
+      box-shadow:
+        0 16px 35px rgba(31, 168, 85, 0.38);
+    }
+
+    .floating-whatsapp:active {
+      transform: scale(0.96);
+    }
+
+    .floating-whatsapp svg {
+      width: 27px;
+      height: 27px;
+    }
+
+    /* =========================================================
+       VOLVER ARRIBA
+    ========================================================= */
+
+    .back-to-top {
+      position: fixed;
+      right: 28px;
+      bottom: 92px;
+      z-index: 890;
+
+      width: 46px;
+      height: 46px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 0;
+
+      border: 1px solid var(--borde);
+      border-radius: 14px;
+
+      background: rgba(255, 253, 252, 0.95);
+      color: var(--rojo);
+
+      box-shadow:
+        0 9px 24px rgba(60, 30, 30, 0.11);
+
+      cursor: pointer;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform: translateY(10px);
+
+      transition:
+        opacity 180ms ease,
+        visibility 180ms ease,
+        transform 180ms ease;
+    }
+
+    .back-to-top.is-visible {
+      opacity: 1;
+      visibility: visible;
+
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-2px);
+    }
+
+    .back-to-top svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* =========================================================
+       TABLETS
+    ========================================================= */
+
+    @media (max-width: 900px) {
+      .zones-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      nav a {
-        display: block;
-        margin: 10px 0;
-        font-size: 18px;
+      .services-list {
+        grid-template-columns: 1fr;
+      }
+
+      .services-list li {
+        min-height: auto;
+      }
+    }
+
+    /* =========================================================
+       CELULARES / NAVEGACIÓN MÓVIL
+    ========================================================= */
+
+    @media (max-width: 760px) {
+      html {
+        scroll-padding-top: 84px;
+      }
+
+      .site-header {
+        padding: 42px 18px 44px;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+
+      .brand-icon {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 16px;
+      }
+
+      .brand-icon svg {
+        width: 27px;
+        height: 27px;
+      }
+
+      .nav-shell {
+        width: min(
+          calc(100% - 24px),
+          var(--ancho-maximo)
+        );
+
+        min-height: 66px;
+
+        justify-content: flex-end;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+
+        padding: 9px;
+
+        border: 1px solid var(--borde);
+        border-radius: 17px;
+
+        background: rgba(255, 253, 252, 0.98);
+
+        box-shadow:
+          0 18px 45px rgba(55, 30, 30, 0.16);
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .nav-links.is-open {
+        display: flex;
+      }
+
+      .nav-links a {
+        justify-content: flex-start;
+
+        width: 100%;
+
+        min-height: 48px;
+
+        padding: 11px 14px;
+
+        border-radius: 11px;
+
+        font-size: 1rem;
+      }
+
+      main {
+        width: min(
+          calc(100% - 24px),
+          var(--ancho-maximo)
+        );
+
+        padding-top: 24px;
+        padding-bottom: 48px;
       }
 
       section {
-        padding: 30px 15px;
+        scroll-margin-top: 82px;
+
+        margin-bottom: 16px;
+
+        border-radius: 19px;
+      }
+
+      .fleet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hours-list {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-whatsapp {
+        right: 15px;
+        bottom: 15px;
+      }
+
+      .back-to-top {
+        right: 21px;
+        bottom: 84px;
+      }
+    }
+
+    /* =========================================================
+       CELULARES PEQUEÑOS
+    ========================================================= */
+
+    @media (max-width: 520px) {
+      .site-header {
+        padding: 36px 16px 38px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      main {
+        width: min(
+          calc(100% - 20px),
+          var(--ancho-maximo)
+        );
+      }
+
+      section {
+        padding: 24px 19px;
       }
 
       h2 {
-        font-size: 22px;
+        font-size: 1.55rem;
       }
 
-      h3,
-      h4 {
-        font-size: 16px;
+      h3 {
+        line-height: 1.75;
+      }
+
+      .zones-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .zones-grid li {
+        min-height: 54px;
       }
 
       .boton {
+        width: 100%;
+      }
+
+      .contact-actions {
+        flex-direction: column;
+      }
+
+      .contact-actions .boton {
+        width: 100%;
+      }
+
+      .hours-list li {
         display: block;
-        width: 80%;
-        max-width: 300px;
-        margin: 12px auto;
-        padding: 14px;
-        font-size: 16px;
+      }
+
+      .hours-list strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .fleet-grid img {
+        aspect-ratio: 4 / 3;
+      }
+
+      .floating-whatsapp {
+        width: 54px;
+        height: 54px;
+
+        border-radius: 17px;
+      }
+
+      footer {
+        padding-left: 65px;
+        padding-right: 65px;
+      }
+    }
+
+    /* =========================================================
+       USUARIOS QUE PREFIEREN MENOS ANIMACIONES
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -155,81 +1225,496 @@
 
 <body>
 
-  <header>
-    <h1>Barométrica de la Costa</h1>
+  <!-- =======================================================
+       CABECERA
+  ======================================================== -->
+
+  <header class="site-header">
+    <div class="header-inner">
+
+      <div class="brand-icon" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 17h18"></path>
+          <path d="M5 17V9.5A2.5 2.5 0 0 1 7.5 7h9A2.5 2.5 0 0 1 19 9.5V17"></path>
+          <path d="M8 11h8"></path>
+          <circle cx="8" cy="17" r="2"></circle>
+          <circle cx="16" cy="17" r="2"></circle>
+        </svg>
+      </div>
+
+      <h1>Barométrica de la Costa</h1>
+
+    </div>
   </header>
 
-  <nav>
-    <a href="#nosotros">Quiénes somos</a>
-    <a href="#zonas">Zonas</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#horarios">Horarios</a>
-    <a href="#contacto">Contacto</a>
+  <!-- =======================================================
+       NAVEGACIÓN
+  ======================================================== -->
+
+  <nav class="site-nav" aria-label="Navegación principal">
+
+    <div class="nav-shell">
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-links"
+      >
+        <span class="sr-only">Menú de navegación</span>
+
+        <svg
+          class="icon-menu"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
+
+        <svg
+          class="icon-close"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M6 6l12 12"></path>
+          <path d="M18 6L6 18"></path>
+        </svg>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li>
+          <a href="#nosotros">Quiénes somos</a>
+        </li>
+
+        <li>
+          <a href="#zonas">Zonas</a>
+        </li>
+
+        <li>
+          <a href="#servicios">Servicios</a>
+        </li>
+
+        <li>
+          <a href="#horarios">Horarios</a>
+        </li>
+
+        <li>
+          <a href="#contacto">Contacto</a>
+        </li>
+      </ul>
+
+    </div>
+
   </nav>
 
-  <section id="nosotros">
-    <h2>¿Quiénes somos?</h2>
-    <h3>
-      Con más de 25 años de experiencia en La Costa de Oro, ofrecemos un servicio barométrico rápido, confiable y con excelente atención al cliente.
-      Contamos con una flota de tres camiones para asegurar respuestas ágiles y efectivas en toda la zona.
-    </h3>
-<a class="boton" href="https://wa.me/+59894581351" target="_blank">Contactenos por Whatsapp</a>
-    
-<br>
-    <br>
-    <div class="center">
-      <h4>Nuestra flota</h4>
-      <img src="images/img.jpg"/>
-      <img src="images/imgg.jpg"/>
-    </div>
-  </section>
+  <!-- =======================================================
+       CONTENIDO
+  ======================================================== -->
 
-  <section id="zonas">
-    <h2>Zonas de trabajo</h2>
-    <h4>Operamos en las siguientes áreas:</h4>
-    <ol>
-      <li>Colinas de Solymar</li>
-      <li>El Pinar</li>
-      <li>Lagomar</li>
-      <li>Lomas de Solymar</li>
-      <li>Medanos de Solymar</li>
-      <li>Montes de Solymar</li>
-      <li>Paso Carrasco</li>
-      <li>Parque Carrasco</li>
-      <li>Parque Miramar</li>
-      <li>San José de Carrasco</li>
-      <li>Shangrilá</li>
-      <li>Solymar</li>
-    </ol>
-  </section>
+  <main>
 
-  <section id="servicios">
-    <h2>Servicios</h2>
-    <ol>
-      <li>Limpieza de pozos</li>
-      <li>Limpieza de cámaras</li>
-      <li>Limpieza de graseras</li>
-    </ol>
-  </section>
+    <!-- QUIÉNES SOMOS -->
 
-  <section id="horarios">
-    <h2>Horarios de atención telefónica</h2>
-    <ul>
-      <li><strong>Lunes a Viernes:</strong> 7:30 a 19:00</li>
-      <li><strong>Sábados:</strong> 7:30 a 16:30</li>
-    </ul>
-  </section>
+    <section id="nosotros">
 
-  <section id="contacto" class="center">
-    <h2>Contacto</h2>
-    <h3>Consultanos por precios o disponibilidad</h3>
-    <a class="boton" href="https://wa.me/+59894581351" target="_blank">WhatsApp</a>
-    <a class="boton" href="tel:26988347">Llamar</a>
-  </section>
+      <h2>¿Quiénes somos?</h2>
+
+      <h3>
+        Con más de 25 años de experiencia en La Costa de Oro, ofrecemos un servicio barométrico rápido, confiable y con excelente atención al cliente.
+        Contamos con una flota de tres camiones para asegurar respuestas ágiles y efectivas en toda la zona.
+      </h3>
+
+      <a
+        class="boton"
+        href="https://wa.me/59894581351"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 1 1 17 0Z"></path>
+        </svg>
+
+        Contactenos por Whatsapp
+      </a>
+
+      <div class="fleet">
+
+        <h4>Nuestra flota</h4>
+
+        <div class="fleet-grid">
+
+          <img
+            src="images/img.jpg"
+            alt="Nuestra flota"
+          >
+
+          <img
+            src="images/imgg.jpg"
+            alt="Nuestra flota"
+            loading="lazy"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ZONAS -->
+
+    <section id="zonas">
+
+      <h2>Zonas de trabajo</h2>
+
+      <h4>Operamos en las siguientes áreas:</h4>
+
+      <ol class="zones-grid">
+        <li>Colinas de Solymar</li>
+        <li>El Pinar</li>
+        <li>Lagomar</li>
+        <li>Lomas de Solymar</li>
+        <li>Medanos de Solymar</li>
+        <li>Montes de Solymar</li>
+        <li>Paso Carrasco</li>
+        <li>Parque Carrasco</li>
+        <li>Parque Miramar</li>
+        <li>San José de Carrasco</li>
+        <li>Shangrilá</li>
+        <li>Solymar</li>
+      </ol>
+
+    </section>
+
+    <!-- SERVICIOS -->
+
+    <section id="servicios">
+
+      <h2>Servicios</h2>
+
+      <ol class="services-list">
+        <li>Limpieza de pozos</li>
+        <li>Limpieza de cámaras</li>
+        <li>Limpieza de graseras</li>
+      </ol>
+
+    </section>
+
+    <!-- HORARIOS -->
+
+    <section id="horarios">
+
+      <h2>Horarios de atención telefónica</h2>
+
+      <ul class="hours-list">
+
+        <li>
+          <strong>Lunes a Viernes:</strong>
+          7:30 a 19:00
+        </li>
+
+        <li>
+          <strong>Sábados:</strong>
+          7:30 a 16:30
+        </li>
+
+      </ul>
+
+    </section>
+
+    <!-- CONTACTO -->
+
+    <section id="contacto">
+
+      <h2>Contacto</h2>
+
+      <h3>
+        Consultanos por precios o disponibilidad
+      </h3>
+
+      <div class="contact-actions">
+
+        <a
+          class="boton whatsapp-button"
+          href="https://wa.me/59894581351"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 1 1 17 0Z"></path>
+          </svg>
+
+          WhatsApp
+        </a>
+
+        <a
+          class="boton"
+          href="tel:26988347"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92Z"></path>
+          </svg>
+
+          Llamar
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
 
   <footer>
     © 2025 Barométrica de la Costa. Todos los derechos reservados.
   </footer>
+
+  <!-- =======================================================
+       WHATSAPP FLOTANTE
+  ======================================================== -->
+
+  <a
+    class="floating-whatsapp"
+    href="https://wa.me/59894581351"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="WhatsApp"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 1 1 17 0Z"></path>
+      <path d="M9 10.5c.8 1.8 2 3 4 4"></path>
+    </svg>
+  </a>
+
+  <!-- =======================================================
+       VOLVER ARRIBA
+  ======================================================== -->
+
+  <button
+    class="back-to-top"
+    type="button"
+    aria-label="Volver arriba"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 15l-6-6-6 6"></path>
+    </svg>
+  </button>
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
+  <script>
+    (() => {
+      "use strict";
+
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
+      const navShell = document.querySelector(".nav-shell");
+
+      const navAnchors = [
+        ...document.querySelectorAll(".nav-links a")
+      ];
+
+      const sections = [
+        ...document.querySelectorAll("main section[id]")
+      ];
+
+      const backToTop = document.querySelector(".back-to-top");
+
+      /* =====================================================
+         MENÚ MÓVIL
+      ===================================================== */
+
+      const setMenuState = (open) => {
+        menuToggle.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+        navLinks.classList.toggle(
+          "is-open",
+          open
+        );
+      };
+
+      menuToggle.addEventListener("click", () => {
+        const isOpen =
+          menuToggle.getAttribute("aria-expanded") === "true";
+
+        setMenuState(!isOpen);
+      });
+
+      navAnchors.forEach((link) => {
+        link.addEventListener("click", () => {
+          setMenuState(false);
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (window.innerWidth > 760) {
+          return;
+        }
+
+        const menuIsOpen =
+          menuToggle.getAttribute("aria-expanded") === "true";
+
+        if (
+          menuIsOpen &&
+          !navShell.contains(event.target)
+        ) {
+          setMenuState(false);
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          setMenuState(false);
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 760) {
+          setMenuState(false);
+        }
+      });
+
+      /* =====================================================
+         SECCIÓN ACTIVA EN EL MENÚ
+      ===================================================== */
+
+      const setActiveLink = (sectionId) => {
+        navAnchors.forEach((link) => {
+          const isCurrent =
+            link.getAttribute("href") === `#${sectionId}`;
+
+          link.classList.toggle(
+            "active",
+            isCurrent
+          );
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visibleSections = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort(
+                (a, b) =>
+                  b.intersectionRatio -
+                  a.intersectionRatio
+              );
+
+            if (visibleSections.length > 0) {
+              setActiveLink(
+                visibleSections[0].target.id
+              );
+            }
+          },
+          {
+            root: null,
+            rootMargin: "-20% 0px -55% 0px",
+            threshold: [
+              0,
+              0.1,
+              0.25,
+              0.5
+            ]
+          }
+        );
+
+        sections.forEach((section) => {
+          observer.observe(section);
+        });
+      }
+
+      /* =====================================================
+         BOTÓN VOLVER ARRIBA
+      ===================================================== */
+
+      const updateBackToTop = () => {
+        backToTop.classList.toggle(
+          "is-visible",
+          window.scrollY > 500
+        );
+      };
+
+      window.addEventListener(
+        "scroll",
+        updateBackToTop,
+        { passive: true }
+      );
+
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+
+      updateBackToTop();
+    })();
+  </script>
 
 </body>
 
